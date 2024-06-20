@@ -8,5 +8,8 @@ export class UserService {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>) {}
 
+    async createUser(){
+        
+    }
 
 }
