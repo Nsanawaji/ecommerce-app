@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+    //Swagger configuration
   const config = new DocumentBuilder()
     .setTitle('E-commerce API')
     .setDescription('API documentation for the e-commerce application')
