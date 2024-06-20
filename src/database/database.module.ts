@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Product } from 'src/entities/product.entity';
 import { User } from 'src/entities/user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: async (configService: ConfigService): Promise<any> => ({
+      useFactory: async (
+        configService: ConfigService,
+      ): Promise<TypeOrmModuleOptions> => ({
         type: 'mysql',
         host: configService.getOrThrow('DB_HOST'),
         port: configService.getOrThrow('DB_PORT'),
@@ -20,8 +22,9 @@ import { User } from 'src/entities/user.entity';
       }),
       inject: [ConfigService],
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [],
   providers: [],
 })
-export class DataModule {}
+export class DatabaseModule {}
