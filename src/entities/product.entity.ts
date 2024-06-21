@@ -12,7 +12,7 @@ export class Product extends Base {
   @Column()
   price: number;
 
-  @Column()
+  @Column({default: ''})
   imageUrl: string;
 
   @Column()
