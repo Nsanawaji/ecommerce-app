@@ -15,7 +15,7 @@ export class ProductService {
   async findItems(id: number) {
     const findPro = await this.ProductRepo.findOneBy({ id: id });
     if (!findPro) {
-      throw new HttpException('Sorry no such product found', 400);
+      throw new HttpException('Sorry no such product found', 404);
     }
 
     return findPro;
@@ -51,7 +51,7 @@ export class ProductService {
   async findAllProducts() {
     const allProducts = await this.ProductRepo.find();
     if (!allProducts) {
-      throw new HttpException('No products found', 400);
+      throw new HttpException('No products found', 404);
     }
     return allProducts;
   }
