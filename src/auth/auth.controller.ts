@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -6,11 +6,13 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get()
+  @Get('facebook')
   @UseGuards(AuthGuard('facebook'))
-  async facebookLogin(@Req() req) {}
+  async facebookLogin(@Req() req) {
+    return HttpStatus.OK;
+  }
 
-  @Get('auth/facebook/redirect')
+  @Get('/facebook/redirect')
   @UseGuards(AuthGuard('facebook'))
   async facebookLoginRedirect(@Req() req) {
     return await this.authService.facebookLogin(req);
