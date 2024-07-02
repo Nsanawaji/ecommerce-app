@@ -87,5 +87,7 @@ export class ProductService {
     if (query.rating) {
       qb.andWhere('product.rating >= rating', { rating: query.rating });
     }
+
+    return await qb.getMany()
   }
 }
