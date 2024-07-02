@@ -1,5 +1,6 @@
-import { Entity, Column } from "typeorm";
-import { Base } from "./base.entity";
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { Base } from './base.entity';
+import { Category } from 'src/category/entities/category.entity';
 
 @Entity()
 export class Product extends Base {
@@ -12,12 +13,12 @@ export class Product extends Base {
   @Column()
   price: number;
 
-  @Column({default: ''})
+  @Column({ default: '' })
   imageUrl: string;
 
-  @Column()
-  category: string;
-
-  @Column({default: 'In-stock'})
+  @Column({ default: 'In-stock' })
   stock: string;
+
+  @ManyToOne(() => Category, (category) => category.products)
+  category: Category;
 }
