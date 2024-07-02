@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Category } from 'src/category/entities/category.entity';
 
 export class CreateProductDto {
   @IsString()
@@ -36,15 +37,16 @@ export class CreateProductDto {
   @IsString()
   @IsOptional()
   @ApiProperty({
-    description: 'The category of the product',
-  })
-  category: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty({
     example: 'In-stock',
-    description: 'This specifies whether the product is in-stock or out-of-stock',
+    description:
+      'This specifies whether the product is in-stock or out-of-stock',
   })
   stock: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty({
+    description: 'The category of the product',
+  })
+  category: Category;
 }
