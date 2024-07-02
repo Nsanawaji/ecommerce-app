@@ -37,14 +37,13 @@ export class ProductService {
 
   //Find one product by id
   async findOneProduct(id) {
-    return await this.findItems(id) 
+    return await this.findItems(id);
   }
 
   //update a product
   async updateProduct(id, payload: UpdateProductDto) {
-    const isProduct = await this.findItems(id)
+    const isProduct = await this.findItems(id);
     return await this.ProductRepo.update(id, payload);
-    
   }
 
   //Find all products
@@ -61,6 +60,32 @@ export class ProductService {
     const isProduct = await this.ProductRepo.findOne({ where: { id: id } });
     if (isProduct) {
       return await this.ProductRepo.delete(id);
+    }
+  }
+
+  async searchAndFilterProducts(query: any) {
+    const qb = await this.ProductRepo.createQueryBuilder('product');
+
+    if (query.name) {
+      qb.andWhere('product.name LIKE :name', { name: `%${query.name}%` });
+    }
+
+    if (query.category) {
+      qb.andWhere('product.category LIKE :category', {
+        category: query.category,
+      });
+    }
+
+    if (query.minPrice) {
+      qb.andWhere('product.price >= minPrice', { minPrice: query.minPrice });
+    }
+
+    if (query.maxPrice) {
+      qb.andWhere('product.price <= maxPrice', { maxPrice: query.maxPrice });
+    }
+
+    if (query.rating) {
+      qb.andWhere('product.rating >= rating', { rating: query.rating });
     }
   }
 }
