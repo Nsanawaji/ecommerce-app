@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from 'src/dtos/create-product..dto';
@@ -79,5 +80,9 @@ export class ProductController {
   @ApiParam({ name: 'id', description: 'ID of the product to delete' })
   async deleteProduct(@Param('id') id: number) {
     return await this.productService.deleteProduct(id);
+  }
+  @Get('search')
+  async searchAndFilterProducts(@Query() query: any) {
+    await this.productService.searchAndFilterProducts(query);
   }
 }
