@@ -1,6 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Base } from './base.entity';
 import { userRole } from 'src/enum/role.enum';
+import { Product } from './product.entity';
 
 @Entity()
 export class User extends Base {
@@ -20,5 +21,6 @@ export class User extends Base {
   })
   role: userRole;
 
-  
+  @OneToMany(() => Product, (product) => product.user)
+  products: Product[];
 }

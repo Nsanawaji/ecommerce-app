@@ -1,6 +1,7 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
 import { Base } from './base.entity';
 import { Category } from 'src/category/entities/category.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Product extends Base {
@@ -21,4 +22,7 @@ export class Product extends Base {
 
   @ManyToOne(() => Category, (category) => category.products)
   category: Category;
+
+  @ManyToOne(() => User, (user) => user.products)
+  user: User;
 }
